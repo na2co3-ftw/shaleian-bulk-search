@@ -55,7 +55,7 @@ export function formatWordResult(token: Token, words: Word[], ignoreDiacritic: b
             continue;
         }
 
-        const isCompact = formattedWord.name.replace(/'/g, "").length <= 2 &&
+        const isCompact = formattedWord.name.length <= 2 &&
             formattedWord.inflectionTags.length == 0 &&
             formattedWord.equivalents.length == 1 &&
             !formattedWord.equivalents[0].generated;

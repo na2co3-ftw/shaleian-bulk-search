@@ -62,7 +62,8 @@ export function searchAndGenerateWords(dictionary: Dictionary, token: Token, ign
     }
 
     const words: Word[] = [];
-    words.push(...searchWords(dictionary, name, !afterFek, ignoreDiacritic));
+    const normalWords = searchWords(dictionary, name, !afterFek, ignoreDiacritic);
+    words.push(...replaceAbbreviations(normalWords, dictionary));
 
     words.push(...generateNumerals(dictionary, name, !afterFek, ignoreDiacritic));
 
@@ -199,6 +200,55 @@ function parseInflection(suggestion: Suggestion | null, sort: string | null | un
     }
 
     return { category: categoryAbbrev, inflectionTags: tags }
+}
+
+function replaceAbbreviations(words: DictionaryWord[], dictionary: Dictionary): Word[] {
+    return words.map(word => {
+        if (!word.word.name.includes("'")) {
+            return word;
+        }
+
+        const equivalents = word.word.equivalentNames["ja"];
+        if (equivalents?.length == 1 && !equivalents[0].includes(" ")) {
+            const longName = equivalents[0];
+            const longWords = searchWords(dictionary, longName, true, false);
+            if (longWords.length == 0) {
+                return word;
+            }
+
+            const longWord = longWords[0];
+            longWord.word = new SoxsotWord(
+                word.word.uniqueName,
+                longWord.word.date,
+                longWord.word.contents
+            );
+            return longWord;
+        }
+
+        if (word.word.uniqueName == "al'") {
+            return {
+                type: "generated",
+                name: word.word.name,
+                equivalents: [{ category: "縮", frame: "/†/", names: "〜個の, 〜人の" }]
+            }
+        }
+        if (word.word.uniqueName == "ac'") {
+            return {
+                type: "generated",
+                name: word.word.name,
+                equivalents: [{ category: "縮", frame: "/†/", names: "〜番目の, 〜回目の, 〜番の, 〜位の" }]
+            }
+        }
+        if (word.word.uniqueName == "s'") {
+            return {
+                type: "generated",
+                name: word.word.name,
+                equivalents: [{ category: "縮", frame: "それは /e/ で", names: "ある" }]
+            }
+        }
+
+        return word;
+    });
 }
 
 const DIGIT_POSITIONS: Record<string, number | undefined> = {
