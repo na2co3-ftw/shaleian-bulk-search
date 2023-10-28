@@ -1,0 +1,173 @@
+@charset "UTF-8";
+body {
+    margin: 1.2rem 1rem 2rem;
+    padding: 0;
+    color: #222;
+    background: white;
+    line-height: 1.44;
+    font-family: Arial, Helvetica, "Hiragino Sans", Meiryo, sans-serif;
+    -webkit-text-size-adjust: 100%;
+}
+div, header, footer, h1, p {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.content {
+    margin: 0 auto;
+    max-width: 45rem;
+}
+
+header {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    gap: 0.3rem 1rem;
+    margin-bottom: 0.5rem;
+}
+h1 {
+    font-size: 1.4rem;
+    font-weight: bold;
+    flex-grow: 1;
+}
+.dictionaryInfo {
+    text-align: end;
+}
+#dictionaryStatus {
+    font-size: 0.8rem;
+    margin-bottom: 0.3rem;
+}
+#downloadDictionary {
+    margin: 0;
+    padding: 0.1rem 0.7rem;
+    border: 1px solid #ffaa33;
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.1) 2px 2px;
+    color: #222;
+    font-family: Arial, Helvetica, "Hiragino Sans", Meiryo, sans-serif;
+    font-size: 0.8rem;
+}
+#downloadDictionary:hover {
+    background: rgba(255, 194, 51, 0.1);
+}
+#downloadDictionary:disabled {
+    border-color: #aaa;
+    background: #eee;
+}
+
+.inputArea {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding-top: 0.7rem;
+    margin-bottom: 1.5rem;
+    background: white;
+}
+.inputAreaHeader {
+    display: flex;
+    margin-bottom: 0.1rem;
+}
+.inputAreaLabel {
+    flex-grow: 1;
+}
+.inputOptions {
+    font-size: 0.8rem;
+}
+#input {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0.7rem;
+    border: 2px solid #ffaa33;
+    background: none;
+    outline: none;
+    box-shadow: rgba(0, 0, 0, 0.1) 2px 2px inset;
+    color: #222;
+    font-family: Arial, Helvetica, "Hiragino Sans", Meiryo, sans-serif;
+    font-size: 1rem;
+}
+#input:hover, #input:focus {
+    background: rgba(255, 194, 51, 0.1);
+}
+
+.wordResult {
+    border: 2px solid #33c2ff;
+    margin-bottom: 0.7rem;
+}
+.wordResult.notFound {
+    border-color: #a0a0a0;
+}
+.resultHeader {
+    padding: 0.3rem 0.7rem;
+    display: flex;
+    align-items: center;
+    background: rgba(51, 194, 255, 0.2);
+    border-bottom: 1px solid #33c2ff;
+}
+.wordResult.notFound .resultHeader {
+    background: rgb(160, 160, 160, 0.2);
+    border-bottom: none;
+}
+.resultHeader .inputName {
+    flex-grow: 1;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.word {
+    padding: 0.5rem 0.7rem;
+}
+.word:not(:last-child) {
+    border-bottom: 1px solid #33c2ff;
+}
+.equivalent {
+    position: relative;
+    margin-left: 1rem;
+}
+.equivalent.generated::before {
+    content: "+";
+    position: absolute;
+    left: -0.6rem;
+    top: 0.2rem;
+    font-size: 0.8rem;
+    color: #3392ff;
+}
+.equivalent .tag {
+    display: inline-block;
+    border: 1px #888 solid;
+    padding: 0 0.2rem;
+    margin-right: 0.3rem;
+    font-size: 0.8rem;
+}
+.word.compact .wordHeader {
+    display: inline-block;
+}
+.word.compact .equivalent {
+    display: inline-block;
+    margin-left: 0.5rem;
+}
+
+footer {
+    margin: 1.2rem 0;
+    font-size: 0.8rem;
+}
+footer p {
+    margin: 0.3rem 0;
+}
+
+.italic {
+    font-style: italic;
+}
+.small {
+    font-size: 0.8rem;
+}
+.weak {
+    opacity: 0.6;
+}
+a:link, a:visited {
+    color: #ff8600;
+    text-decoration: underline;
+}
+a:hover {
+    background-color: rgba(255, 194, 51, 0.2);
+}
