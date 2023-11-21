@@ -72,6 +72,7 @@ async function main() {
     updateDictionaryStatus();
     execSearch();
     downloadutton.disabled = false;
+    input.focus();
 }
 
 async function loadDictionary(): Promise<Dictionary | null> {
