@@ -48,7 +48,7 @@ h1 {
     font-family: Arial, Helvetica, "Hiragino Sans", Meiryo, sans-serif;
     font-size: 0.8rem;
 }
-#downloadDictionary:hover {
+#downloadDictionary:hover, #downloadDictionary:focus-visible {
     background: rgba(255, 194, 51, 0.1);
 }
 #downloadDictionary:disabled {
@@ -74,21 +74,41 @@ h1 {
 .inputOptions {
     font-size: 0.8rem;
 }
+.inputTextContainer {
+    display: flex;
+    border: 2px solid #ffaa33;
+    box-shadow: rgba(0, 0, 0, 0.1) 2px 2px inset;
+}
+.inputTextContainer:hover, .inputTextContainer:focus-within {
+    background: rgba(255, 194, 51, 0.1);
+}
 #input {
-    width: 100%;
+    flex-grow: 1;
     box-sizing: border-box;
     margin: 0;
     padding: 0.7rem;
-    border: 2px solid #ffaa33;
+    border: none;
     background: none;
     outline: none;
-    box-shadow: rgba(0, 0, 0, 0.1) 2px 2px inset;
     color: #222;
     font-family: Arial, Helvetica, "Hiragino Sans", Meiryo, sans-serif;
     font-size: 1rem;
 }
-#input:hover, #input:focus {
-    background: rgba(255, 194, 51, 0.1);
+#clearInput {
+    margin: 0;
+    padding: 0 0.7rem;
+    border: none;
+    background: none;
+    color: rgba(34, 34, 34, 0.5);
+    font-family: Arial, Helvetica, "Hiragino Sans", Meiryo, sans-serif;
+    font-size: 1.5rem;
+}
+#clearInput:hover, #clearInput:focus-visible {
+    color: #222;
+    background: rgba(0, 0, 0, 0.1);
+}
+#clearInput.hidden {
+    display: none;
 }
 
 .wordResult {

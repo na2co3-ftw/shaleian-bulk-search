@@ -9,6 +9,7 @@ async function main() {
     let dictionary: Dictionary | null = null;
 
     const input = document.getElementById("input") as HTMLInputElement;
+    const clearInput = document.getElementById("clearInput") as HTMLButtonElement;
     const ignoreDiacritic = document.getElementById("ignoreDiacritic") as HTMLInputElement;
     const wordList = document.getElementById("resultList")!;
     const downloadutton = document.getElementById("downloadDictionary") as HTMLButtonElement;
@@ -16,10 +17,18 @@ async function main() {
 
     const params = new URLSearchParams(location.search);
     input.value = params.get("input") ?? "";
+    clearInput.classList.toggle("hidden", input.value == "");
     ignoreDiacritic.checked = params.get("ignoreDiacritic") == "true";
 
     let timeout: number | null = null;
     input.addEventListener("input", function () {
+        clearInput.classList.toggle("hidden", input.value == "");
+        startSearch();
+    });
+    clearInput.addEventListener("click", function () {
+        input.value = "";
+        clearInput.classList.add("hidden");
+        input.focus();
         startSearch();
     });
     ignoreDiacritic.addEventListener("change", function () {
