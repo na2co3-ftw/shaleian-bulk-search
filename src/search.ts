@@ -1,13 +1,13 @@
 import {
     Word as SoxsotWord,
     NormalParameter,
-    Suggestion,
+    type Suggestion,
     MarkupResolver,
     Parser
 } from "soxsot";
-import { StringNormalizer } from "soxsot/dist/util/string-normalizer";
-import { Dictionary } from "./dictionary";
-import { Token } from "./split";
+import { StringNormalizer } from "soxsot/dist/util/string-normalizer.js";
+import type { Dictionary } from "./dictionary.ts";
+import type { Token } from "./split.ts";
 
 export interface DictionaryWord {
     type: "dictionary";

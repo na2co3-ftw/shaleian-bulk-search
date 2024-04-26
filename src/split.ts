@@ -1,4 +1,4 @@
-import { Dictionary } from "./dictionary";
+import type { Dictionary } from "./dictionary.ts";
 
 export interface Token {
     input: string;

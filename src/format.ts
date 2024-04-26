@@ -3,8 +3,8 @@ import {
     MarkupParser,
     Parser
 } from "soxsot";
-import { Token } from "./split";
-import { Word } from "./search";
+import type { Token } from "./split.ts";
+import type { Word } from "./search.ts";
 
 interface HtmlString {
     html: string;

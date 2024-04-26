@@ -1,11 +1,11 @@
 {
   "name": "shaleian-bulk-search",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "build": "webpack build --node-env production",
-    "serve": "webpack serve"
+    "dev": "vite",
+    "build": "tsc && vite build --base /shaleian-bulk-search/",
+    "preview": "vite preview --base /shaleian-bulk-search/"
   },
   "keywords": [],
   "author": "",
@@ -15,15 +15,7 @@
     "soxsot": "^0.8.1"
   },
   "devDependencies": {
-    "@types/node": "^20.8.6",
-    "@types/webpack": "^5.28.3",
-    "@types/webpack-dev-server": "^4.7.2",
-    "copy-webpack-plugin": "^11.0.0",
-    "html-webpack-plugin": "^5.5.3",
-    "html-webpack-tags-plugin": "^3.0.2",
-    "ts-loader": "^9.5.0",
-    "ts-node": "^10.9.1",
     "typescript": "^5.2.2",
-    "webpack-cli": "^5.1.4"
+    "vite": "^5.2.10"
   }
 }

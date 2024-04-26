@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>シャレイア語 まとめて検索</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <div class="content">
+            <header>
+                <h1>シャレイア語 まとめて検索</h1>
+                <div class="dictionaryInfo">
+                    <div id="dictionaryStatus">辞書データ: なし</div>
+                    <div><button id="downloadDictionary" disabled>辞書ダウンロード</button></div>
+                </div>
+            </header>
+            <div class="inputArea">
+                <div class="inputAreaHeader">
+                    <div class="inputAreaLabel">入力:</div>
+                    <div class="inputOptions">
+                        <input type="checkbox" id="ignoreDiacritic" name="ignoreDiacritic">
+                        <label for="ignoreDiacritic">ダイアクリティカルマークを無視する</label>
+                    </div>
+                </div>
+                <div class="inputTextContainer">
+                    <input type="text" id="input">
+                    <button id="clearInput" class="hidden">×</button>
+                </div>
+            </div>
+            <div id="resultList"></div>
+            <footer>
+                <p>
+                    シャレイア語の文を入力すると、含まれる単語をまとめて辞書検索します。<br>
+                    辞書データは<a href="https://dic.ziphil.com/" target="_blank" rel="noopener">シャレイア語公式オンライン辞典</a>より取得します。<br>
+                </p>
+                <p>
+                    GitHub: <a href="https://github.com/na2co3-ftw/shaleian-bulk-search" target="_blank" rel="noopener">na2co3-ftw/shaleian-bulk-search</a>
+                </p>
+            </footer>
+        </div>
+        <script type="module" src="./src/main.ts"></script>
+    </body>
+</html>

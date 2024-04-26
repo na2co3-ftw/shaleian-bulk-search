@@ -1,9 +1,10 @@
 import localForage from "localforage";
-import { PlainDictionary } from "soxsot";
-import { Dictionary } from "./dictionary";
-import { splitToTokens } from "./split";
-import { searchAndGenerateWords } from "./search";
-import { formatWordResult } from "./format";
+import type { PlainDictionary } from "soxsot";
+import { Dictionary } from "./dictionary.ts";
+import { splitToTokens } from "./split.ts";
+import { searchAndGenerateWords } from "./search.ts";
+import { formatWordResult } from "./format.ts";
+import "./style.css";
 
 async function main() {
     let dictionary: Dictionary | null = null;

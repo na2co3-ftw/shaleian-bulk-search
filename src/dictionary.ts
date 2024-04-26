@@ -1,9 +1,9 @@
 import {
-    PlainDictionary,
+    type PlainDictionary,
     Dictionary as SoxsotDictionary,
-    Parameter,
+    type Parameter,
     NormalParameter,
-    SearchResult,
+    type SearchResult,
     MarkupResolver,
     Parser
 } from "soxsot";
