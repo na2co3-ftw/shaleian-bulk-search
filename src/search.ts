@@ -287,7 +287,7 @@ function generateNumerals(dictionary: Dictionary, name: string, withInflections:
     if (!withInflections || normalizedName.startsWith("a")) {
         const verbalStem = withInflections ? normalizedName.substring(1) : normalizedName;
 
-        const number = parseNumeral(dictionary, verbalStem, false);
+        const number = parseNumeral(dictionary, verbalStem, false, false);
         if (number != null) {
             numerals.push({
                 type: "generated",
@@ -296,7 +296,7 @@ function generateNumerals(dictionary: Dictionary, name: string, withInflections:
                 notShowAsGenerated: verbalStem.length == 3
             });
         }
-        const decimal = parseNumeral(dictionary, verbalStem, true);
+        const decimal = parseNumeral(dictionary, verbalStem, false, true);
         if (decimal != null) {
             numerals.push({
                 type: "generated",
@@ -308,40 +308,43 @@ function generateNumerals(dictionary: Dictionary, name: string, withInflections:
     }
 
     if (!withInflections || !normalizedName.startsWith("a")) {
-        const verbalStem = verbalize(normalizedName);
-        if (verbalStem != null) {
-            const number = parseNumeral(dictionary, verbalStem, false);
-            if (number != null) {
-                numerals.push({
-                    type: "generated",
-                    name: verbalStem,
-                    equivalents: [{ category: "名", frame: null, names: number }],
-                    notShowAsGenerated: verbalStem.length == 3
-                });
-            }
-            const decimal = parseNumeral(dictionary, verbalStem, true);
-            if (decimal != null) {
-                numerals.push({
-                    type: "generated",
-                    name: verbalStem,
-                    equivalents: [{ category: "名", frame: null, names: decimal }],
-                    notShowAsGenerated: verbalStem.length == 33
-                });
-            }
+        const nominalStem = normalizedName;
+
+        const number = parseNumeral(dictionary, nominalStem, true, false);
+        if (number != null) {
+            numerals.push({
+                type: "generated",
+                name: nominalStem,
+                equivalents: [{ category: "名", frame: null, names: number }],
+                notShowAsGenerated: nominalStem.length == 3
+            });
+        }
+        const decimal = parseNumeral(dictionary, nominalStem, true, true);
+        if (decimal != null) {
+            numerals.push({
+                type: "generated",
+                name: nominalStem,
+                equivalents: [{ category: "名", frame: null, names: decimal }],
+                notShowAsGenerated: nominalStem.length == 33
+            });
         }
     }
 
     return numerals;
 }
 
-function parseNumeral(dictionary: Dictionary, verbalStem: string, isDecimal: boolean): string | null {
-    let rest = verbalStem;
+function parseNumeral(dictionary: Dictionary, stem: string, isNominal: boolean, isDecimal: boolean): string | null {
+    const digitMap = !isNominal ?
+        (!isDecimal ? dictionary.verbalDigits : dictionary.verbalDecimalDigits) :
+        (!isDecimal ? dictionary.nominalDigits : dictionary.nominalDecimalDigits);
+
+    let rest = stem;
 
     const digits: (string | null)[] = [null, null, null, null];
     let hasDigit = false;
     while (true) {
         const digitName = rest.substring(0, 3);
-        const digit = (!isDecimal ? dictionary.digits : dictionary.decimalDigits).get(digitName);
+        const digit = digitMap.get(digitName);
         if (digit == undefined) {
             break;
         }
@@ -380,38 +383,4 @@ function parseNumeral(dictionary: Dictionary, verbalStem: string, isDecimal: boo
         numberTexts.reverse()
     }
     return numberTexts.join("");
-}
-
-const VERBALIZE_APLAUT: Record<string, string | undefined> = {
-    "e": "a",
-    "i": "e",
-    "a": "i",
-    "u": "o",
-    "o": "u",
-
-    "ê": "â",
-    "î": "ê",
-    "â": "î",
-    "û": "ô",
-    "ô": "û",
-
-    "é": "á",
-    "í": "é",
-    "á": "í",
-
-    "è": "à",
-    "ì": "è",
-    "à": "ì",
-    "ù": "ò",
-    "ò": "ù",
-};
-
-function verbalize(nominal: string): string | null {
-    for (let i = nominal.length - 1; i >= 0; i--) {
-        const aplaut = VERBALIZE_APLAUT[nominal[i]];
-        if (aplaut != undefined) {
-            return nominal.substring(0, i) + aplaut + nominal.substring(i + 1);
-        }
-    }
-    return null;
 }
