@@ -69,8 +69,8 @@ export function searchAndGenerateWords(dictionary: Dictionary, token: Token, ign
 
     if (/^[\d\s]*(·\s*\d[\d\s]*)?$/u.test(name)) {
         const number = name.replace(/\s+/g, "").replace(/·/g, ".");
-        const adjEquivalent = { category: "形", frame: null, names: number };
-        const nounEquivalent = { category: "名", frame: "/†/", names: number };
+        const adjEquivalent = { category: "形", frame: "/†/", names: number };
+        const nounEquivalent = { category: "名", frame: null, names: number };
         words.push({ type: "generated", name, equivalents: [adjEquivalent, nounEquivalent] });
     }
 
