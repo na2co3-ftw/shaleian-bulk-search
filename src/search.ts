@@ -204,7 +204,7 @@ function parseInflection(suggestion: Suggestion | null, sort: string | null | un
 
 function replaceAbbreviations(words: DictionaryWord[], dictionary: Dictionary): Word[] {
     return words.map(word => {
-        if (!word.word.name.includes("'")) {
+        if (!word.word.name.includes("’")) {
             return word;
         }
 
@@ -225,21 +225,21 @@ function replaceAbbreviations(words: DictionaryWord[], dictionary: Dictionary): 
             return longWord;
         }
 
-        if (word.word.uniqueName == "al'") {
+        if (word.word.uniqueName == "al’") {
             return {
                 type: "generated",
                 name: word.word.name,
                 equivalents: [{ category: "縮", frame: "/†/", names: "〜個の, 〜人の" }]
             }
         }
-        if (word.word.uniqueName == "ac'") {
+        if (word.word.uniqueName == "ac’") {
             return {
                 type: "generated",
                 name: word.word.name,
                 equivalents: [{ category: "縮", frame: "/†/", names: "〜番目の, 〜回目の, 〜番の, 〜位の" }]
             }
         }
-        if (word.word.uniqueName == "s'") {
+        if (word.word.uniqueName == "s’") {
             return {
                 type: "generated",
                 name: word.word.name,

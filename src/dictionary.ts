@@ -39,7 +39,7 @@ export class Dictionary {
     }
 
     private initAbbreviations(): string[] {
-        const parameter = new NormalParameter("'", "name", "part", "ja",
+        const parameter = new NormalParameter("’", "name", "part", "ja",
             { diacritic: false, case: false, space: false, wave: false });
         const result = this.dictionary.search(parameter);
         return result.words.map(word => word.name);

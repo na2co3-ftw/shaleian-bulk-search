@@ -7,9 +7,14 @@ export interface Token {
 }
 
 export function splitToTokens(dictionary: Dictionary, sentence: string): Token[] {
-    const abbreviations = dictionary.abbreviations;
-    const wordRegex = new RegExp(String.raw`(${abbreviations.join("|")}|\+?\p{L}+\+?|'|[\d·][\d·\u202f]*)`, "gu");
-    const splitted = sentence.trim().normalize("NFC").split(wordRegex);
+    const abbreviationRegex = dictionary.abbreviations
+        .map(abbrev =>
+            abbrev.endsWith("’") ? String.raw`${abbrev}|` : String.raw`${abbrev}(?!\p{L})|`
+        ).join("");
+    const wordRegex = new RegExp(String.raw`(${abbreviationRegex}\+?\p{L}+\+?|’|[\d·][\d·\u202f]*)`, "igu");
+
+    const normalizedSentence = sentence.trim().normalize("NFC").replaceAll("'", "’");
+    const splitted = normalizedSentence.split(wordRegex);
 
     const tokens: Token[] = [];
     let prefix = splitted[0].trimStart();
