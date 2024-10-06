@@ -90,12 +90,17 @@ async function loadDictionary(): Promise<Dictionary | null> {
     if (plainDictionary == null) {
         return null;
     }
+
     const updatedAt = await localForage.getItem<string>("updatedAt");
     if (updatedAt == null) {
         return null;
     }
+    const updatedAtDate = new Date(updatedAt);
+    if (updatedAtDate.getTime() < new Date("2024-10-06T00:00:00.000+09:00").getTime()) {
+        return null;
+    }
 
-    return new Dictionary(plainDictionary, new Date(updatedAt));
+    return new Dictionary(plainDictionary, updatedAtDate);
 }
 
 async function downloadDictionary(): Promise<Dictionary> {
