@@ -143,7 +143,7 @@ const CATEGORY_TO_ABBREV: Record<string, string> = {
     "special": "特"
 };
 
-const TENSE_DIAPLAY: Record<string, string> = {
+const TENSE_DISPLAY: Record<string, string> = {
     "present": "現在",
     "past": "過去",
     "future": "未来",
@@ -187,7 +187,7 @@ function parseInflection(suggestion: Suggestion | null, sort: string | null | un
 
     const tense = descriptionMap.get("tense");
     if (tense != null) {
-        tags.push(TENSE_DIAPLAY[tense]);
+        tags.push(TENSE_DISPLAY[tense]);
     }
 
     const aspect = descriptionMap.get("aspect");

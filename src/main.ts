@@ -13,7 +13,7 @@ async function main() {
     const clearInput = document.getElementById("clearInput") as HTMLButtonElement;
     const ignoreDiacritic = document.getElementById("ignoreDiacritic") as HTMLInputElement;
     const wordList = document.getElementById("resultList")!;
-    const downloadutton = document.getElementById("downloadDictionary") as HTMLButtonElement;
+    const downloadButton = document.getElementById("downloadDictionary") as HTMLButtonElement;
     const dictionaryStatus = document.getElementById("dictionaryStatus")!;
 
     const params = new URLSearchParams(location.search);
@@ -56,14 +56,14 @@ async function main() {
         }
     }
 
-    downloadutton.addEventListener("click", async function () {
-        downloadutton.disabled = true;
+    downloadButton.addEventListener("click", async function () {
+        downloadButton.disabled = true;
         try {
             dictionary = await downloadDictionary();
             updateDictionaryStatus();
             execSearch();
         } catch {}
-        downloadutton.disabled = false;
+        downloadButton.disabled = false;
     });
     function updateDictionaryStatus() {
         if (dictionary == null) {
@@ -81,7 +81,7 @@ async function main() {
     }
     updateDictionaryStatus();
     execSearch();
-    downloadutton.disabled = false;
+    downloadButton.disabled = false;
     input.focus();
 }
 
