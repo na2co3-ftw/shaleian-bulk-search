@@ -203,26 +203,32 @@ function parseInflection(suggestion: Suggestion | null, sort: string | null | un
 }
 
 function replaceAbbreviations(words: DictionaryWord[], dictionary: Dictionary): Word[] {
-    return words.map(word => {
+    return words.flatMap<Word>(word => {
         if (!word.word.name.includes("’")) {
             return word;
         }
 
         const equivalents = word.word.equivalentNames["ja"];
-        if (equivalents?.length == 1 && !equivalents[0].includes(" ")) {
-            const longName = equivalents[0];
-            const longWords = searchWords(dictionary, longName, true, false);
+        if (equivalents?.every(e => !e.includes(" "))) {
+            const longWords : Word[] = [];
+            for (const longName of equivalents) {
+                const longWord = searchWords(dictionary, longName, true, false)[0] as DictionaryWord | undefined;
+                if (!longWord) {
+                    continue;
+                }
+
+                longWord.word = new SoxsotWord(
+                    word.word.uniqueName,
+                    longWord.word.date,
+                    longWord.word.contents
+                );
+                longWords.push(longWord);
+            }
+
             if (longWords.length == 0) {
                 return word;
             }
-
-            const longWord = longWords[0];
-            longWord.word = new SoxsotWord(
-                word.word.uniqueName,
-                longWord.word.date,
-                longWord.word.contents
-            );
-            return longWord;
+            return longWords;
         }
 
         if (word.word.uniqueName == "al’") {
