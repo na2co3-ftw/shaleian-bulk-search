@@ -124,32 +124,35 @@ interface FormattedWord {
 function formatWord(word: Word): FormattedWord | null {
     if (word.type == "dictionary") {
         const parsedWord = parser.parse(word.word);
-        const section = parsedWord.parts["ja"]?.sections[0];
-        if (section == undefined) {
+        const sections = parsedWord.parts["ja"]?.sections;
+        if (sections == null || sections.length == 0) {
             return null;
         }
 
         const equivalents: FormattedEquivalent[] = [];
         const expectedCategory = word.category;
         let hasMatchCategory = false;
-        for (const equivalent of section.getEquivalents(true)) {
-            const matchCategory = expectedCategory == undefined ||
-                (equivalent.category?.startsWith(expectedCategory) == true);
-            hasMatchCategory ||= matchCategory;
+        for (const section of sections) {
+            for (const equivalent of section.getEquivalents(true)) {
+                const matchCategory = expectedCategory == undefined ||
+                    (equivalent.category?.startsWith(expectedCategory) == true);
+                hasMatchCategory ||= matchCategory;
 
-            equivalents.push({
-                category: equivalent.category,
-                frame: equivalent.frame,
-                names: { html: equivalent.names.map(x => x.html).join(", ") },
-                weak: !matchCategory,
-                generated: false
-            });
+                equivalents.push({
+                    category: equivalent.category,
+                    frame: equivalent.frame,
+                    names: { html: equivalent.names.map(x => x.html).join(", ") },
+                    weak: !matchCategory,
+                    generated: false
+                });
+            }
         }
 
         if (!hasMatchCategory) {
+            const sort = parser.lookupSort(word.word, "ja");
             const equivalentNames =
-                section.sort?.startsWith("動") == true ? VERBAL_GENERATED_EQUIVALENT[expectedCategory!] :
-                section.sort?.startsWith("名") == true ? NOMINAL_GENERATED_EQUIVALENT[expectedCategory!] :
+                sort?.startsWith("動") == true ? VERBAL_GENERATED_EQUIVALENT[expectedCategory!] :
+                sort?.startsWith("名") == true ? NOMINAL_GENERATED_EQUIVALENT[expectedCategory!] :
                 undefined
             equivalents.push({
                 category: expectedCategory!,
