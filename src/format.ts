@@ -171,7 +171,7 @@ function formatWord(word: Word): FormattedWord | null {
             frame: equivalent.frame == null ? null : markupParser.parse(equivalent.frame),
             names: markupParser.parse(equivalent.names ?? "?"),
             weak: false,
-            generated: word.notShowAsGenerated != true
+            generated: true
         }));
         return {
             name: word.name,

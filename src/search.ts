@@ -26,7 +26,6 @@ export interface GeneratedWord {
     type: "generated";
     name: string;
     equivalents: GeneratedEquivalent[];
-    notShowAsGenerated?: boolean;
 }
 
 export type Word = DictionaryWord | GeneratedWord;
@@ -287,6 +286,9 @@ function generateNumerals(dictionary: Dictionary, name: string, withInflections:
     if (!/^[a-zA-Z]+$/.test(normalizedName)) {
         return [];
     }
+    if (normalizedName.length <= 4) {
+        return [];
+    }
 
     const numerals: Word[] = [];
 
@@ -298,8 +300,7 @@ function generateNumerals(dictionary: Dictionary, name: string, withInflections:
             numerals.push({
                 type: "generated",
                 name: verbalStem,
-                equivalents: [{ category: "形", frame: "/†/", names: number }],
-                notShowAsGenerated: verbalStem.length == 3
+                equivalents: [{ category: "形", frame: "/†/", names: number }]
             });
         }
         const decimal = parseNumeral(dictionary, verbalStem, false, true);
@@ -307,8 +308,7 @@ function generateNumerals(dictionary: Dictionary, name: string, withInflections:
             numerals.push({
                 type: "generated",
                 name: verbalStem,
-                equivalents: [{ category: "形", frame: "/†/", names: decimal }],
-                notShowAsGenerated: verbalStem.length == 3
+                equivalents: [{ category: "形", frame: "/†/", names: decimal }]
             });
         }
     }
@@ -321,8 +321,7 @@ function generateNumerals(dictionary: Dictionary, name: string, withInflections:
             numerals.push({
                 type: "generated",
                 name: nominalStem,
-                equivalents: [{ category: "名", frame: null, names: number }],
-                notShowAsGenerated: nominalStem.length == 3
+                equivalents: [{ category: "名", frame: null, names: number }]
             });
         }
         const decimal = parseNumeral(dictionary, nominalStem, true, true);
@@ -330,8 +329,7 @@ function generateNumerals(dictionary: Dictionary, name: string, withInflections:
             numerals.push({
                 type: "generated",
                 name: nominalStem,
-                equivalents: [{ category: "名", frame: null, names: decimal }],
-                notShowAsGenerated: nominalStem.length == 33
+                equivalents: [{ category: "名", frame: null, names: decimal }]
             });
         }
     }

@@ -72,8 +72,6 @@ export class Dictionary {
                     nominalDecimalDigits.set(word.name, equivalent[1]);
                 }
             }
-
-            this.dictionary.deleteWord(word.uid);
         }
 
         return [verbalDigits, verbalDecimalDigits, nominalDigits, nominalDecimalDigits];
